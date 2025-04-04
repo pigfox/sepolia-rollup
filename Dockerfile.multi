@@ -1,0 +1,26 @@
+# Dockerfile.multi
+
+# Builder stage
+FROM golang:1.23 AS builder
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+# Build binaries
+RUN go build -o bin/rollup_node ./cmd/rollup_node
+RUN go build -o bin/mock_client ./cmd/mock_client
+RUN go build -o bin/batcher ./cmd/batcher
+
+# Runtime stage
+FROM gcr.io/distroless/base-debian11
+
+WORKDIR /app
+COPY --from=builder /app/bin /app/bin
+COPY .env /app/.env
+
+# Default command gets overridden by docker-compose
+ENTRYPOINT ["/app/bin/rollup_node"]
