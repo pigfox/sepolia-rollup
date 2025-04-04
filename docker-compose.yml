@@ -1,45 +1,22 @@
-version: '3.8'
-
 services:
   rollup_node:
     build:
       context: .
       dockerfile: Dockerfile.multi
-    command: ["/app/bin/rollup_node"]
-    container_name: rollup_node
     environment:
-      - RPC_URL=${RPC_URL}
-      - PRIVATE_KEY=${PRIVATE_KEY}
-      - CONTRACT_ADDRESS=${CONTRACT_ADDRESS}
-    volumes:
-      - .env:/app/.env:ro
-
+      - SERVICE=rollup_node  # Set this explicitly for rollup_node
+    entrypoint: ["/app/bin/rollup_node"]  # Override the ENTRYPOINT
   mock_client:
     build:
       context: .
       dockerfile: Dockerfile.multi
-    command: ["/app/bin/mock_client"]
-    container_name: mock_client
-    depends_on:
-      - rollup_node
     environment:
-      - RPC_URL=${RPC_URL}
-      - PRIVATE_KEY=${PRIVATE_KEY}
-      - CONTRACT_ADDRESS=${CONTRACT_ADDRESS}
-    volumes:
-      - .env:/app/.env:ro
-
+      - SERVICE=mock_client
+    entrypoint: ["/app/bin/mock_client"]  # Override the ENTRYPOINT
   batcher:
     build:
       context: .
       dockerfile: Dockerfile.multi
-    command: ["/app/bin/batcher"]
-    container_name: batcher
-    depends_on:
-      - rollup_node
     environment:
-      - RPC_URL=${RPC_URL}
-      - PRIVATE_KEY=${PRIVATE_KEY}
-      - CONTRACT_ADDRESS=${CONTRACT_ADDRESS}
-    volumes:
-      - .env:/app/.env:ro
+      - SERVICE=batcher
+    entrypoint: ["/app/bin/batcher"]  # Override the ENTRYPOINT

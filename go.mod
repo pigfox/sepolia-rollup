@@ -3,6 +3,8 @@ module sepolia-rollup
 go 1.23.4
 
 require (
+	github.com/consensys/gnark v0.12.0
+	github.com/consensys/gnark-crypto v0.15.0
 	github.com/ethereum/go-ethereum v1.15.7
 	github.com/joho/godotenv v1.5.1
 )
@@ -10,9 +12,9 @@ require (
 require (
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/StackExchange/wmi v1.2.1 // indirect
-	github.com/bits-and-blooms/bitset v1.17.0 // indirect
-	github.com/consensys/bavard v0.1.22 // indirect
-	github.com/consensys/gnark-crypto v0.14.0 // indirect
+	github.com/bits-and-blooms/bitset v1.20.0 // indirect
+	github.com/blang/semver/v4 v4.0.0 // indirect
+	github.com/consensys/bavard v0.1.27 // indirect
 	github.com/crate-crypto/go-ipa v0.0.0-20240724233137-53bbb0ceb27a // indirect
 	github.com/crate-crypto/go-kzg-4844 v1.1.0 // indirect
 	github.com/deckarep/golang-set/v2 v2.6.0 // indirect
